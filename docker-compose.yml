@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  api:
+    build: ./docker/node
+    image: node:14.17-stretch-nodemon
+    working_dir: /api
+    ports:
+      - $NODE_PORT:$NODE_PORT
+    volumes:
+      - ./:/api
+    # command: bash -c "sleep 36000"
+    command: bash -c "npm i; npm run start:dev"
