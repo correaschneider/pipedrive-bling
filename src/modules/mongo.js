@@ -1,28 +1,18 @@
-import Deal from './../services/mongo';
+import dealService from './../services/mongo';
 
-const persiste = (req, res, next) => {
-  const deal = {
-    pedido: {
-      numero: 2,
-      cliente: {
-        nome: 'Pedro Schneider',
-      },
-      itens: [
-        {
-          item: {
-            codigo: '1',
-            descricao: 'Produto 1',
-            qtde: 1.0,
-            vlr_unit: 10.0,
-          },
-        },
-      ],
-    },
-  };
+const fetch = async (req, res, next) => {
+  const { data } = req.params;
 
-  Deal.create(deal);
+  const filter = {};
+  if (data) {
+    filter.pedido.data = data;
+  }
+
+  const result = await dealService.deal.find(filter);
+
+  res.send(result);
 };
 
 export default {
-  persiste,
+  fetch,
 };

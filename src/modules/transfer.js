@@ -1,5 +1,6 @@
 import pipedriveService from './../services/pipedrive';
 import blingService from './../services/bling';
+import mongoService from './../services/mongo';
 import converters from '../converters';
 
 const transfer = async (req, res, next) => {
@@ -12,10 +13,15 @@ const transfer = async (req, res, next) => {
     })
   );
 
-  const resultBling = await Promise.all(
+  const resultBling = [];
+  await Promise.all(
     resultPipedrive.data.map(async (deal) => {
       const dealBling = await converters.toBling(deal);
-      return await blingService.deals.post(dealBling);
+
+      const returnBling = await blingService.deals.post(dealBling);
+      resultBling.push(returnBling);
+
+      await mongoService.deal.create(dealBling);
     })
   );
 

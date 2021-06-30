@@ -4,7 +4,8 @@ const toBling = async (dealPipedrive) => {
   const dealBling = {
     pedido: {
       numero: dealPipedrive.id,
-      data: dealPipedrive.won_time,
+      data: moment(dealPipedrive.won_time, 'DD/MM/YYYY'),
+      vlr: dealPipedrive.value,
       cliente: {
         nome: dealPipedrive.person_id.name,
       },
