@@ -1,7 +1,10 @@
+import moment from 'moment';
+
 const toBling = async (dealPipedrive) => {
   const dealBling = {
     pedido: {
       numero: dealPipedrive.id,
+      data: dealPipedrive.won_time,
       cliente: {
         nome: dealPipedrive.person_id.name,
       },

@@ -18,7 +18,7 @@ axiosPipedrive.interceptors.response.use(
 
     return { data, ...additional_data.pagination };
   },
-  (err) => err.response.data,
+  (err) => err.response.data
 );
 
 export default axiosPipedrive;

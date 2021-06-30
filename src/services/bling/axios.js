@@ -1,4 +1,3 @@
-import curlirize from 'axios-curlirize';
 import axios from 'axios';
 
 import dotenvSafe from 'dotenv-safe';
@@ -37,9 +36,7 @@ axiosBling.interceptors.response.use(
 
     return res.data;
   },
-  (err) => err.response.data,
+  (err) => err.response.data
 );
-
-curlirize(axiosBling);
 
 export default axiosBling;

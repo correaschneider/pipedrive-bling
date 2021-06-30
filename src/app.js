@@ -1,19 +1,27 @@
+import express from 'express';
+import mongoose from 'mongoose';
 import dotenvSafe from 'dotenv-safe';
+
 dotenvSafe.config();
 
-import express from 'express';
-import logger from 'morgan';
+mongoose.Promise = global.Promise;
 
 import router from './routes/index';
 
 const app = express();
 
-app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(router);
 
-app.listen(process.env.NODE_PORT, () =>
-  console.log(`Runnig at port ${process.env.NODE_PORT}`)
-);
+mongoose
+  .connect(process.env.MONGODB_CONNECTION_STRING, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    app.listen(process.env.NODE_PORT, () =>
+      console.log(`Runnig at port ${process.env.NODE_PORT}`)
+    );
+  });
